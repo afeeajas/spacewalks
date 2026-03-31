@@ -2,7 +2,6 @@
 input_file = 'eva_data.json'
 output_file = 'eva_data.csv'
 graph_file = 'comulative_eva_graph.png'
-fieldnames <- c("EVA #", "Country", "Crew    ", "Vehicle", "Date", "Duration", "Purpose")
 
 library(jsonlite)
 library(lubridate)
