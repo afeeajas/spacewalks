@@ -8,11 +8,13 @@ output_file <- "eva_data.csv"
 graph_file  <- "cumulative_eva_graph.png"
 
 # 1) Read JSON array into a tibble
-eva_tbl <- jsonlite::fromJSON(input_file) |>
+read_json_todatafame <- function(input_file){
+  jsonlite::fromJSON(input_file) |>
   as_tibble()
-
+}
 # 2) Convert types and drop missing duration/date
-eva_tbl <- eva_tbl |>
+write_dataframe_to_csv <- function(df,output_file){
+df <- df |>
   mutate(
     eva  = as.numeric(eva),
     date = ymd_hms(date, quiet = TRUE)
@@ -20,7 +22,13 @@ eva_tbl <- eva_tbl |>
   filter(!is.na(duration), duration != "", !is.na(date))
 
 # 3) Write CSV (index=False equivalent)
-readr::write_csv(eva_tbl, output_file)
+  readr::write_csv(df, output_file)
+  df
+}
+
+#Pipeline 
+eva_tbl <- read_json_todatafame(input_file)
+eva_tbl <- write_dataframe_to_csv(eva_tbl,output_file)
 
 # 4) Sort by date
 eva_tbl <- eva_tbl |>
