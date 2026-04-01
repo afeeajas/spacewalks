@@ -11,7 +11,7 @@ graph_file  <- "cumulative_eva_graph.png"
 eva_tbl <- jsonlite::fromJSON(input_file) |>
   as_tibble()
 
-# 2) Convert types + drop missing duration/date
+# 2) Convert types and drop missing duration/date
 eva_tbl <- eva_tbl |>
   mutate(
     eva  = as.numeric(eva),
